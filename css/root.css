@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&family=Cutive+Mono&display=swap");
+
+:root {
+  --col1: #f7fff6;
+  --col2: #87d68d;
+  --col3: #f75590;
+  --col4: #007bfe;
+  --col5: #424242;
+  --col6: #170312;
+  --mono: "Cutive Mono", monospace;
+  --sans: "Cantarell", sans-serif;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--sans);
+  color: var(--col6);
+}
+
+html {
+  background-color: var(--col1);
+}
+
+html.dark {
+  background-color: var(--col5);
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+}

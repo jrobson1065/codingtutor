@@ -1,0 +1,34 @@
+.logo-light, .logo-dark {
+  margin: 0 auto;
+}
+
+.logo-light, .dark .logo-dark {
+  display: block;
+}
+
+.dark .logo-light, .logo-dark {
+  display: none;
+}
+
+.cta {
+  position: relative;
+  padding: 10px 30px;
+  display: block;
+  margin: -100px auto;
+  background-color: var(--col2);
+  z-index: 20;
+  font-size: 15pt;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 2px solid var(--col6);
+  outline: none;
+}
+
+.dark .cta {
+  border-color: var(--col4);
+}
+
+.cta:is(:hover, :focus) {
+  filter: brightness(1.3);
+  border: 2px solid var(--col3);
+}

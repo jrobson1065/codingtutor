@@ -5,10 +5,23 @@
   --col2: #87d68d;
   --col3: #f75590;
   --col4: #007bfe;
+  --col4a: #007bfe25;
+  --col4aa: #007bfe66;
   --col5: #424242;
   --col6: #170312;
+  --invalid: #f43207;
+  --valid: #00c200;
+  --invalid-btn: #f4330777;
+  --valid-btn: #00c20088;
+  --inactive: #77777788;
+  --inactive-border-dark: #b6b6b688;
+  --inactive-border-light: #57575788;
   --mono: "Cutive Mono", monospace;
   --sans: "Cantarell", sans-serif;
+  --cur-default: URL(http://www.rw-designer.com/cursor-extern.php?id=139802), URL(/images/cursors/cursor.cur), default;
+  --cur-pointer: URL(http://www.rw-designer.com/cursor-extern.php?id=139799), URL(/images/cursors/pointer.cur), pointer;
+  --cur-text: URL(http://www.rw-designer.com/cursor-extern.php?id=139804), URL(/images/cursors/text.cur), text;
+  --cur-inactive: URL(http://www.rw-designer.com/cursor-extern.php?id=139806), URL(/images/cursors/inactive.cur), not-allowed;
 }
 
 * {
@@ -21,6 +34,7 @@
 
 html {
   background-color: var(--col1);
+  cursor: var(--cur-default);
 }
 
 html.dark {
@@ -30,4 +44,12 @@ html.dark {
 body {
   height: 100vh;
   width: 100vw;
+}
+
+a, button {
+  cursor: var(--cur-pointer);
+}
+
+input {
+  cursor: var(--cur-text);
 }

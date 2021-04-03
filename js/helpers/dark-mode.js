@@ -14,14 +14,15 @@ export const setToggleSwitch = () => {
 };
 
 export const toggleDarkMode = () => {
-  console.log("called");
   $("html").toggle("dark");
-  switchMode();
 };
 
 export const initDarkMode = () => {
   document.ready(() => {
-    if (checkDarkMode()) toggleDarkMode();
-    $(".switch input").click(toggleDarkMode);
+    if (checkDarkMode()) {
+      toggleDarkMode();
+      setToggleSwitch();
+    }
+    $(".switch input").click(toggleDarkMode, switchMode);
   });
 };

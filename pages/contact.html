@@ -8,27 +8,67 @@
     <link rel="stylesheet" href="/css/nav.css" />
     <link rel="stylesheet" href="/css/contact.css" />
     <script src="/js/library.js"></script>
-    <title>Coding Tutor Contact</title>
+    <title class="contact">Coding Tutor Contact</title>
   </head>
   <body>
     <nav></nav>
-    <main>
+    <main class="outer">
+      <main class="inner">
         <aside>
-            <span>Email: <a href="mailto:j.robson1065@gmail.com">j.robson1065@gmail.com</a></span>
-            <span>LinkedIn: <a href="https://www.linkedin.com/in/johnrobson11/" target="_blank">LinkedIn/johnrobson11</a></span>
+          <h2>Reach Out</h2>
+          <span
+            >Email:
+            <a href="mailto:j.robson1065@gmail.com"
+              >j.robson1065@gmail.com</a
+            ></span
+          >
+          <span
+            >LinkedIn:
+            <a href="https://www.linkedin.com/in/johnrobson11/" target="_blank"
+              >LinkedIn/johnrobson11</a
+            ></span
+          >
         </aside>
         <section>
-            <form>
-                <input id="name" type="text">
-                <label for="name">Name</label>
-                <input id="email" type="email">
-                <label for="email">Email</label>
-                <textarea id="message"></textarea>
-                <label for="message">Name</label>
-                <button>Send</button>
-            </form>
+          <h2>Send a Message</h2>
+          <form>
+            <div class="field">
+              <span
+                id="name"
+                class="input"
+                role="input"
+                tabindex="0"
+                data-valid=""
+                contenteditable
+              ></span>
+              <label for="name">Name</label>
+            </div>
+            <div class="field">
+              <span
+                id="email"
+                class="input"
+                role="email"
+                tabindex="0"
+                data-valid=""
+                contenteditable
+              ></span>
+              <label for="email">Email</label>
+            </div>
+            <div class="field">
+              <span
+                id="message"
+                class="textarea"
+                tabindex="0"
+                data-valid=""
+                contenteditable
+              ></span>
+              <label for="message">Message</label>
+            </div>
+            <span class="btn-cover"><button data-valid="">Send</button></span>
+          </form>
         </section>
+      </main>
     </main>
-    <script src="/js/pages/contact.js" type="module"></script>
+    <script src="/js/main.js" type="module"></script>
   </body>
 </html>

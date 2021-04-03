@@ -19,7 +19,6 @@
   z-index: 20;
   font-size: 15pt;
   border-radius: 20px;
-  cursor: pointer;
   border: 2px solid var(--col6);
   outline: none;
 }

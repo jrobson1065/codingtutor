@@ -1,20 +1,172 @@
-main {
+main.outer {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 50px;
   padding: 50px;
+  --font-sz: 15pt;
 }
 
-main.dark * {
+main.inner {
+  width: 50vw;
+  max-width: 1000px;
+  min-width: 750px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+.dark main.inner * {
   color: var(--col1);
+}
+
+main.inner * {
+  font-size: var(--font-sz);
+}
+
+main.inner h2 {
+  font-size: 20pt;
 }
 
 aside {
   display: flex;
   flex-direction: column;
+  gap: 15px;
+  align-items: center;
 }
 
-section * {
+aside a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--col5);
+}
+
+.dark aside a {
+  border-bottom: 1px solid var(--col1);
+}
+
+aside a:hover {
+  border-bottom: 1px solid var(--col3);
+  color: var(--col3);
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+section h2 {
+  margin-bottom: 20px;
+}
+
+section form {
+  width: 100%;
+  max-width: 400px;
+}
+
+section .field {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+main.inner section label {
+  pointer-events: none;
+  transition: all 0.5s ease;
+  position: absolute;
+  left: 20px;
+  font-size: 12pt;
+  top: 0;
+}
+
+section :is(.input, .textarea) {
   display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--col5);
+  background-color: var(--col4a);
+  cursor: var(--cur-text);
+  border-radius: 10px;
+}
+
+.dark section :is(.input, .textarea) {
+  border-color: var(--col4);
+}
+
+section :is(.input, .textarea):is(:hover, :focus) {
+  outline: none;
+}
+
+section .textarea {
+  min-height: 200px;
+  padding: 20px;
+}
+
+section .input {
+  padding: 20px 20px 5px;
+}
+
+main.inner section :is(.textarea, .input):empty + label {
+  top: 14px;
+  font-size: 20pt;
+}
+
+section :is(.input, .textarea):focus {
+  border-bottom: 2px solid var(--col3);
+}
+
+section :is(.input, .textarea):hover {
+  background-color: var(--col4aa);
+}
+
+main.inner section :is(.input, .textarea):is(:focus) + label {
+  top: 0;
+  font-size: 12pt;
+}
+
+section :is(.input, .textarea)[data-valid="invalid"] {
+  border-color: var(--invalid);
+}
+
+section :is(.input, .textarea)[data-valid="valid"] {
+  border-color: var(--valid);
+}
+
+section button {
+  width: 100%;
+  border-radius: 10px;
+  pointer-events: none;
+  cursor: var(--cur-pointer);
+  background-color: var(--inactive);
+  border: 2px solid var(--inactive-border-light);
+}
+
+.dark section button {
+  border: 2px solid var(--inactive-border-dark);
+}
+
+section .btn-cover {
+  cursor: var(--cur-inactive);
+}
+
+section button[data-valid="invalid"] {
+  background-color: var(--invalid-btn);
+  border: 2px solid var(--inactive-border-light);
+}
+
+section button[data-valid="valid"] {
+  background-color: var(--valid-btn);
+  border: 2px solid var(--inactive-border-light);
+  pointer-events: all;
+}
+
+@media only screen and (max-width: 800px) {
+  main.inner {
+    grid-template-columns: 1fr;
+    min-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  main.outer {
+    padding: 20px;
+  }
 }

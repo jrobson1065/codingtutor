@@ -2,7 +2,7 @@ nav {
   position: relative;
   background-color: var(--col4);
   display: flex;
-  flex-wrap: wrap;
+  width: 100vw !important;
 }
 
 .nav-header {
@@ -10,7 +10,6 @@ nav {
   padding-top: 7px;
   padding-left: 100px;
   gap: 50px;
-  min-width: 395px;
   flex-grow: 1;
 }
 
@@ -19,7 +18,7 @@ nav .switch {
   width: 60px;
   height: 34px;
   transform: scale(0.7);
-  cursor: pointer;
+  cursor: var(--cur-pointer);
 }
 
 nav .switch::before {
@@ -85,7 +84,7 @@ nav .slider.round:before {
   border-radius: 50%;
 }
 
-.nav-header h1 a {
+nav a {
   text-decoration: none;
 }
 
@@ -106,43 +105,42 @@ nav .slider.round:before {
 .nav-list-item {
   font-size: 15pt;
   padding: 10px;
-  cursor: pointer;
+  cursor: var(--cur-pointer);
   background-color: var(--col4);
   width: 120px;
   text-align: center;
   font-weight: bold;
 }
 
-.nav-list-item a {
-  text-decoration: none;
-}
-
-.nav-list-item:is(:hover, :focus),
-.nav-list-item:is(:hover, :focus) a {
+:is(.nav-list-item:is(:hover, :focus), .nav-list-item:is(:hover, :focus) a) {
   filter: brightness(1.3);
   color: var(--col1);
   outline: none;
 }
 
-nav .nav-list-item:is(:hover, :focus) ~ .bottom-bar {
+:has() {
+  background-color: red !important;
+}
+
+nav .nav-list span > :is(:hover, :focus) ~ .bottom-bar {
   width: 20%;
   left: 0;
   opacity: 1;
 }
 
-nav .nav-list-item:nth-child(2):is(:hover, :focus) ~ .bottom-bar {
+nav .nav-list span > :nth-child(2):is(:hover, :focus) ~ .bottom-bar {
   left: 20%;
 }
 
-nav .nav-list-item:nth-child(3):is(:hover, :focus) ~ .bottom-bar {
+nav .nav-list span > :nth-child(3):is(:hover, :focus) ~ .bottom-bar {
   left: 40%;
 }
 
-nav .nav-list-item:nth-child(4):is(:hover, :focus) ~ .bottom-bar {
+nav .nav-list span > :nth-child(4):is(:hover, :focus) ~ .bottom-bar {
   left: 60%;
 }
 
-nav .nav-list-item:nth-child(5):is(:hover, :focus) ~ .bottom-bar {
+nav .nav-list span > :nth-child(5):is(:hover, :focus) ~ .bottom-bar {
   left: 80%;
 }
 
@@ -160,13 +158,50 @@ nav .bottom-bar {
   pointer-events: none;
 }
 
-@media only screen and (max-width: 874px) {
+@media only screen and (max-width: 975px) {
   nav * {
     justify-content: center !important;
   }
-  
+
+  nav {
+    flex-direction: column;
+  }
+
   nav .switch {
     position: absolute;
     left: 100px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .nav-list-item {
+    flex-grow: 1;
+    width: unset;
+    font-size: 4vw;
+    padding: 2vw;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  nav .nav-header {
+    flex-direction: column-reverse;
+    padding: 0;
+    gap: 0;
+  }
+
+  nav :is(h1, a) {
+    text-align: center;
+  }
+
+  nav .switch {
+    position: relative;
+    left: 55%;
+  }
+
+  .nav-list-item {
+    flex-grow: 1;
+    width: unset;
+    font-size: 4vw;
+    padding: 2vw;
   }
 }

@@ -3,6 +3,7 @@ nav {
   background-color: var(--col4);
   display: flex;
   width: 100vw !important;
+  cursor: var(--cur-green-default);
 }
 
 .nav-header {
@@ -18,7 +19,7 @@ nav .switch {
   width: 60px;
   height: 34px;
   transform: scale(0.7);
-  cursor: var(--cur-pointer);
+  cursor: var(--cur-green-pointer);
 }
 
 nav .switch::before {
@@ -86,6 +87,7 @@ nav .slider.round:before {
 
 nav a {
   text-decoration: none;
+  cursor: var(--cur-green-pointer);
 }
 
 .nav-list {
@@ -105,7 +107,7 @@ nav a {
 .nav-list-item {
   font-size: 15pt;
   padding: 10px;
-  cursor: var(--cur-pointer);
+  cursor: var(--cur-green-pointer);
   background-color: var(--col4);
   width: 120px;
   text-align: center;

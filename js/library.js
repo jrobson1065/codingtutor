@@ -1,3 +1,11 @@
+const letters = /[a-zA-Z]/;
+
+const numbers = /[0-9]/;
+
+const space = "\xA0"
+
+const isLetter = (char) => char.toLowerCase() != char.toUpperCase();
+
 const $ = document.querySelector.bind(document);
 
 const $$ = document.querySelectorAll.bind(document);
@@ -10,6 +18,31 @@ const removeLocal = (key) => localStorage.removeItem(key);
 
 const remove = Element.prototype.remove;
 
+const preventPaste = (Node.prototype.preventPaste = function () {
+  this.on("paste", (e) => e.preventDefault());
+});
+
+const preventCut = (Node.prototype.preventPaste = function () {
+  this.on("cut", (e) => e.preventDefault());
+});
+
+const preventCopy = (Node.prototype.preventPaste = function () {
+  this.on("copy", (e) => e.preventDefault());
+});
+
+const preventAll = (Node.prototype.preventPaste = function () {
+  this.on("paste", (e) => e.preventDefault());
+  this.on("cut", (e) => e.preventDefault());
+  this.on("copy", (e) => e.preventDefault());
+});
+
+Element.prototype.shake = function () {
+  this.classList.add("shake");
+  setTimeout(() => {
+    this.classList.remove("shake");
+  }, 1000);
+};
+
 Element.prototype.build = function (component) {
   this.innerHTML = component;
   return this;
@@ -20,22 +53,22 @@ Element.prototype.toggle = function (className) {
   return this;
 };
 
-Element.prototype.on = addEventListener;
+Node.prototype.on = addEventListener;
 
-Element.prototype.clean = function() {
-    while (this.firstChild) this.firstChild.remove();
-    return this;
-}
+Element.prototype.clean = function () {
+  while (this.firstChild) this.firstChild.remove();
+  return this;
+};
 
 HTMLElement.prototype.click = function (...callbacks) {
-  callbacks.forEach((cb) => this.addEventListener("click", cb));
+  callbacks.forEach((cb) => this.on("click", cb));
   return this;
 };
 
 Document.prototype.on = addEventListener;
 
-Document.prototype.ready = function(...callbacks) {
-  callbacks.forEach((cb) => document.addEventListener("DOMContentLoaded", cb));
+Document.prototype.ready = function (...callbacks) {
+  callbacks.forEach((cb) => document.on("DOMContentLoaded", cb));
   return this;
 };
 

@@ -50,7 +50,6 @@ aside a:hover {
 section {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -84,7 +83,7 @@ section :is(.input, .textarea) {
   border-bottom: 2px solid var(--col5);
   background-color: var(--col4a);
   cursor: var(--cur-text);
-  border-radius: 10px;
+  border-radius: 10px 10px 5px 5px;
 }
 
 .dark section :is(.input, .textarea) {
@@ -109,7 +108,15 @@ main.inner section :is(.textarea, .input):empty + label {
   font-size: 20pt;
 }
 
-section :is(.input, .textarea):focus {
+main.inner section :is(.textarea, .input):empty:not(:focus) + label::after {
+  content: "";
+}
+
+main.inner section :is(label, :is(.textarea, .input):focus + label)::after {
+  content: ":";
+}
+
+section :is(.input, .textarea):is(:focus, :hover) {
   border-bottom: 2px solid var(--col3);
 }
 

@@ -11,7 +11,6 @@ main.inner {
   min-width: 750px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 50px;
 }
 
 .dark main.inner * {
@@ -29,8 +28,11 @@ main.inner h2 {
 aside {
   display: flex;
   flex-direction: column;
-  gap: 15px;
   align-items: center;
+}
+
+aside a {
+  margin: 0 0px;
 }
 
 aside a {

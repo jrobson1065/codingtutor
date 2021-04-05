@@ -1,26 +1,56 @@
-.logo-light, .logo-dark {
-  margin: 0 auto;
+.svg-logo {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 50px;
+  width: fit-content;
+  margin: 100px auto;
+  transform: scale(1.5);
 }
 
-.logo-light, .dark .logo-dark {
-  display: block;
+.svg-logo span {
+  transition: all 0s ease;
+  display: inline-block;
 }
 
-.dark .logo-light, .logo-dark {
-  display: none;
+.svg-logo :is(.green, .blue) * {
+  transition: all 0.8s ease-out;
+}
+
+.svg-logo h1 {
+  font-size: 25pt;
+  margin-bottom: 20px;
+}
+
+.dark .svg-logo h1 span {
+  color: var(--col1);
+}
+
+.svg-logo h3 {
+  font-size: 12pt;
+}
+
+.svg-logo h3 span {
+  color: var(--col3);
+}
+
+.svg-logo .flip {
+  transform: rotateX(360deg);
+  transition: all 0.5s ease;
 }
 
 .cta {
   position: relative;
   padding: 10px 30px;
   display: block;
-  margin: -100px auto;
+  margin: 20px auto;
   background-color: var(--col2);
   z-index: 20;
   font-size: 15pt;
   border-radius: 20px;
   border: 2px solid var(--col6);
   outline: none;
+  transition: all 0.3s ease;
 }
 
 .dark .cta {
@@ -31,3 +61,35 @@
   filter: brightness(1.3);
   border: 2px solid var(--col3);
 }
+
+.svg-logo:hover .green1 {
+  transform: translate(40px, 10px) rotate(-5deg);
+}
+
+.svg-logo:hover .green2 {
+  transform: translate(20px, -55px) rotate(20deg);
+}
+
+.svg-logo:hover .green3 {
+  transform: translate(30px, 55px) rotate(-10deg);
+}
+
+.svg-logo:hover .blue1 {
+  transform: translate(-40px, -50px) rotate(15deg);
+}
+
+.svg-logo:hover .blue2 {
+  transform: translate(-80px, 95px) rotate(-30deg);
+}
+
+.svg-logo:hover .blue3 {
+  transform: translate(-10px, -55px) rotate(10deg);
+}
+
+/* .green1 {
+  transform: translate(82px, -12px);
+}
+
+.blue1 {
+  transform: translate(-79px, -32px);
+} */

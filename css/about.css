@@ -3,9 +3,8 @@ main {
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   width: fit-content;
-  margin: 10vh auto;
+  margin: 10vh auto 0;
   padding: 30px;
-  gap: 50px;
 }
 
 figure {
@@ -127,7 +126,6 @@ figure:hover :is(.img-cover-text, .img-cover-text-bottom) {
 article {
   display: flex;
   flex-direction: column;
-  gap: 20px;
   text-indent: 50px;
   width: fit-content;
   text-align: justify;
@@ -135,6 +133,7 @@ article {
 }
 
 p {
+  margin: 10px;
   min-width: 400px;
   width: 100%;
   max-width: 30vw;

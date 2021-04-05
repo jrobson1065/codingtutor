@@ -2,7 +2,7 @@ const letters = /[a-zA-Z]/;
 
 const numbers = /[0-9]/;
 
-const space = "\xA0"
+const space = "\xA0";
 
 const isLetter = (char) => char.toLowerCase() != char.toUpperCase();
 
@@ -73,9 +73,9 @@ Document.prototype.ready = function (...callbacks) {
 };
 
 Object.prototype.each = function (callback, method = "call") {
-  this.forEach((el) => {
-    if (method === "call") callback.call(el);
-    else if (method === "pass") callback(el);
+  this.forEach((el, i) => {
+    if (method === "call") callback.call(el, i);
+    else if (method === "pass") callback(el, i);
   });
   return this;
 };

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&family=Cutive+Mono&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Mono:wght@400;700&display=swap');
 
 :root {
   --col1: #f7fff6;
@@ -20,7 +20,7 @@
   --inactive: #77777788;
   --inactive-border-dark: #b6b6b688;
   --inactive-border-light: #57575788;
-  --mono: "Cutive Mono", monospace;
+  --mono: "Roboto Mono", monospace;
   --sans: "Cantarell", sans-serif;
   --cur-default: URL(http://www.rw-designer.com/cursor-extern.php?id=139802), URL(/images/cursors/cursor.cur), default;
   --cur-pointer: URL(http://www.rw-designer.com/cursor-extern.php?id=139799), URL(/images/cursors/pointer.cur), pointer;

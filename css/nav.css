@@ -10,7 +10,6 @@ nav {
   display: flex;
   padding-top: 7px;
   padding-left: 100px;
-  gap: 50px;
   flex-grow: 1;
 }
 
@@ -188,7 +187,6 @@ nav .bottom-bar {
   nav .nav-header {
     flex-direction: column-reverse;
     padding: 0;
-    gap: 0;
   }
 
   nav :is(h1, a) {

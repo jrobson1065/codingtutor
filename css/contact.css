@@ -1,3 +1,67 @@
+.validator {
+  /* display: none; */
+  position: fixed;
+  z-index: 5000;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000bb;
+}
+
+.validator .popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max-content;
+  max-width: 90%;
+  height: max-content;
+  background-color: var(--col1);
+  transform: translate(-50%, -50%);
+  padding: 50px;
+}
+
+.validator .prompt {
+  font-size: 16pt;
+}
+
+.validator .code {
+  margin: 10px 0;
+  padding: 5px;
+  background-color: var(--col4a);
+  height: fit-content;
+  width: 100%;
+  text-align: center;
+  outline: none;
+  font-size: 16pt;
+  border-radius: 10px;
+  border-bottom: 2px solid var(--col4);
+}
+
+.validator .validate {
+  width: 100%;
+  padding: 5px 0;
+  font-size: 16pt;
+  border-radius: 10px;
+  pointer-events: none;
+  cursor: var(--cur-pointer);
+  background-color: var(--inactive);
+  border: 2px solid var(--inactive-border-light);
+}
+
+.validator .btn-cover {
+  cursor: var(--cur-inactive);
+}
+
+.validator .validate[data-valid="invalid"] {
+  background-color: var(--invalid-btn);
+  border: 2px solid var(--inactive-border-light);
+}
+
+.validator .validate[data-valid="valid"] {
+  background-color: var(--valid-btn);
+  border: 2px solid var(--inactive-border-light);
+  pointer-events: all;
+}
+
 main.outer {
   display: flex;
   justify-content: center;
@@ -31,22 +95,26 @@ aside {
   align-items: center;
 }
 
-aside a {
-  margin: 0 0px;
+aside div {
+  margin: 10px 0;
+  font-weight: bold;
 }
 
 aside a {
   text-decoration: none;
-  border-bottom: 1px solid var(--col5);
+  border-bottom: 1px solid var(--col2);
+  color: var(--col2) !important;
+  font-weight: normal;
+  text-shadow: 0 0 1px var(--col5);
 }
 
 .dark aside a {
-  border-bottom: 1px solid var(--col1);
+  border-bottom: 1px solid var(--col2);
 }
 
 aside a:hover {
   border-bottom: 1px solid var(--col3);
-  color: var(--col3);
+  color: var(--col3) !important;
 }
 
 section {
@@ -139,7 +207,7 @@ section :is(.input, .textarea)[data-valid="valid"] {
   border-color: var(--valid);
 }
 
-section button {
+section .send {
   width: 100%;
   border-radius: 10px;
   pointer-events: none;
@@ -148,7 +216,7 @@ section button {
   border: 2px solid var(--inactive-border-light);
 }
 
-.dark section button {
+.dark section .send {
   border: 2px solid var(--inactive-border-dark);
 }
 
@@ -156,12 +224,12 @@ section .btn-cover {
   cursor: var(--cur-inactive);
 }
 
-section button[data-valid="invalid"] {
+section .send[data-valid="invalid"] {
   background-color: var(--invalid-btn);
   border: 2px solid var(--inactive-border-light);
 }
 
-section button[data-valid="valid"] {
+section .send[data-valid="valid"] {
   background-color: var(--valid-btn);
   border: 2px solid var(--inactive-border-light);
   pointer-events: all;

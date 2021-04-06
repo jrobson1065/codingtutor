@@ -24,12 +24,12 @@ figure::before {
   height: 100%;
   background: -webkit-linear-gradient(
     left,
-    rgba(255, 255, 255, 0) 0%,
+    #ffffff00 0%,
     var(--col3aa) 100%
   );
   background: linear-gradient(
     to right,
-    rgba(255, 255, 255, 0) 0%,
+    #ffffff00 0%,
     var(--col3aa) 100%
   );
   -webkit-transform: skewX(-25deg);
@@ -41,7 +41,7 @@ figure:hover::before {
   animation: shine 0.75s;
 }
 
-img.self {
+figure img.self {
   display: block;
   max-width: 500px;
   width: 40vw;

@@ -9,38 +9,45 @@
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="stylesheet" href="/css/contact.css" />
     <script src="/js/library.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"
+    ></script>
     <title class="contact">Coding Tutor Contact</title>
   </head>
   <body>
+    <div class="validator">
+      <div class="popup">
+        <div class="prompt">Please enter the code that was emailed to you:</div>
+        <div class="code" data-valid="" contenteditable></div>
+        <span class="btn-cover"><button class="validate" data-valid="">Confirm and Send Email</button></span>
+      </div>
+    </div>
     <nav></nav>
     <main class="outer">
       <main class="inner">
         <aside>
           <h2>Reach Out</h2>
-          <span
-            >Email:
-            <a href="mailto:j.robson1065@gmail.com"
-              >j.robson1065@gmail.com</a
-            ></span
-          >
-          <span
-            >LinkedIn:
+          <div>
+            Email:
+            <a href="mailto:j.robson1065@gmail.com">j.robson1065@gmail.com</a>
+          </div>
+          <div>
+            LinkedIn:
             <a href="https://www.linkedin.com/in/johnrobson11/" target="_blank"
               >LinkedIn/johnrobson11</a
-            ></span
-          >
-          <span
-            >GitHub:
-            <a href="https://github.com/jrobson1065"
-              >github.com/jrobson1065</a
-            ></span
-          >
-          <span
-            >Portfolio:
+            >
+          </div>
+          <div>
+            GitHub:
+            <a href="https://github.com/jrobson1065">github.com/jrobson1065</a>
+          </div>
+          <div>
+            Portfolio:
             <a href="https://jrobson1065.github.io" target="_blank"
               >jrobson1065.github.io</a
-            ></span
-          >
+            >
+          </div>
         </aside>
         <section>
           <h2>Send a Message</h2>
@@ -79,7 +86,7 @@
               ></span>
               <label for="message">Message</label>
             </div>
-            <span class="btn-cover"><button data-valid="">Send</button></span>
+            <span class="btn-cover"><button class="send" data-valid="">Send</button></span>
           </form>
         </section>
       </main>

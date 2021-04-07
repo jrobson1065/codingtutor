@@ -9,18 +9,30 @@
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="stylesheet" href="/css/contact.css" />
     <script src="/js/library.js"></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"
-    ></script>
+    <script src="/js/services/email.js"></script>
     <title class="contact">Coding Tutor Contact</title>
   </head>
   <body>
-    <div class="validator">
+    <div class="validator hidden">
       <div class="popup">
         <div class="prompt">Please enter the code that was emailed to you:</div>
-        <div class="code" data-valid="" contenteditable></div>
-        <span class="btn-cover"><button class="validate" data-valid="">Confirm and Send Email</button></span>
+        <div
+          class="code"
+          role="code"
+          tabindex="0"
+          data-valid=""
+          spellcheck="false"
+          contenteditable
+        ></div>
+        <span class="btn-cover">
+          <button class="validate" data-valid="">Confirm and Send Email</button>
+        </span>
+        <div class="verify-email">
+          <p>Didn't receive an email?</p>
+          <p>Please verify your email:</p>
+          <p class="email-verification" role="email" contenteditable></p>
+          <button class="resend">Send Code Again</button>
+        </div>
       </div>
     </div>
     <nav></nav>
@@ -86,8 +98,14 @@
               ></span>
               <label for="message">Message</label>
             </div>
-            <span class="btn-cover"><button class="send" data-valid="">Send</button></span>
+            <span class="btn-cover"
+              ><button class="send" data-valid="">Send</button></span
+            >
           </form>
+          <div class="blocked hidden">
+            Sorry, this content is currently blocked. Please wait 1 hour and try
+            again.
+          </div>
         </section>
       </main>
     </main>

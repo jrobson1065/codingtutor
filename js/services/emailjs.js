@@ -1,3 +1,7 @@
+(function () {
+  emailjs.init("user_YaQlPUmioMpmaXse1sNTK");
+})();
+
 export const sendEmail = (type, data) => {
   const params = {
     email: data["email"],
@@ -12,6 +16,6 @@ export const sendEmail = (type, data) => {
 };
 
 const templateMap = {
-  confirmation: "template_091m7xy",
-  send: "template_5iuxnmr",
+  confirm: "template_091m7xy",
+  send: "template_gpv2nyi",
 };

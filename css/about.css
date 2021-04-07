@@ -22,16 +22,8 @@ figure::before {
   content: "";
   width: 50%;
   height: 100%;
-  background: -webkit-linear-gradient(
-    left,
-    #ffffff00 0%,
-    var(--col3aa) 100%
-  );
-  background: linear-gradient(
-    to right,
-    #ffffff00 0%,
-    var(--col3aa) 100%
-  );
+  background: -webkit-linear-gradient(left, #ffffff00 0%, var(--col3aa) 100%);
+  background: linear-gradient(to right, #ffffff00 0%, var(--col3aa) 100%);
   -webkit-transform: skewX(-25deg);
   transform: skewX(-25deg);
 }
@@ -119,6 +111,11 @@ figure:hover .img-cover-bottom {
   right: 0;
 }
 
+figure:hover .img-cover-text,
+figure:hover .img-cover-text-bottom {
+  font-size: 30pt;
+}
+
 figure:hover :is(.img-cover-text, .img-cover-text-bottom) {
   font-size: 30pt;
 }
@@ -153,13 +150,13 @@ p {
     grid-row: 2;
     width: 100%;
     max-width: 500px;
-	min-width: unset;
+    min-width: unset;
     padding-bottom: 20px;
     transition: height 0s, width 0s;
   }
 
   p {
-	min-width: unset;
+    min-width: unset;
     width: 100%;
     max-width: 500px;
     font-size: 13pt;

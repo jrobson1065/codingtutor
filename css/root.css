@@ -25,11 +25,12 @@
   --cur-default: URL(http://www.rw-designer.com/cursor-extern.php?id=139802), URL(/images/cursors/cursor.cur), default;
   --cur-pointer: URL(http://www.rw-designer.com/cursor-extern.php?id=139799), URL(/images/cursors/pointer.cur), pointer;
   --cur-text: URL(http://www.rw-designer.com/cursor-extern.php?id=139804), URL(/images/cursors/text.cur), text;
-  --cur-inactive: URL(http://www.rw-designer.com/cursor-extern.php?id=139806), URL(/images/cursors/inactive.cur), not-allowed;
+  --cur-unavailable: URL(http://www.rw-designer.com/cursor-extern.php?id=139806), URL(/images/cursors/inactive.cur), not-allowed;
   --cur-green-default: URL(http://www.rw-designer.com/cursor-extern.php?id=139750), URL(/images/cursors/cursor.cur), default;
   --cur-green-pointer: URL(http://www.rw-designer.com/cursor-extern.php?id=139764), URL(/images/cursors/cursor.cur), default;
   --cur-green-text: URL(http://www.rw-designer.com/cursor-extern.php?id=139755), URL(/images/cursors/cursor.cur), default;
-  --cur-green-inactive: URL(http://www.rw-designer.com/cursor-extern.php?id=139757), URL(/images/cursors/cursor.cur), default;
+  --cur-green-unavailable: URL(http://www.rw-designer.com/cursor-extern.php?id=139757), URL(/images/cursors/cursor.cur), default;
+  --cur-red-unavailable: URL(http://www.rw-designer.com/cursor-extern.php?id=139737), URL(/images/cursors/cursor.cur), default;
 }
 
 * {
@@ -62,6 +63,10 @@ body {
 
 input {
   cursor: var(--cur-text);
+}
+
+.hidden {
+  display: none !important;
 }
 
 .shake {

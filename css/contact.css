@@ -1,5 +1,4 @@
 .validator {
-  /* display: none; */
   position: fixed;
   z-index: 5000;
   width: 100vw;
@@ -17,6 +16,25 @@
   background-color: var(--col1);
   transform: translate(-50%, -50%);
   padding: 50px;
+  pointer-events: none;
+}
+
+.validator .popup::after {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  content: "X";
+  background-color: var(--invalid);
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  z-index: 10000;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20pt;
+  cursor: var(--cur-pointer);
+  pointer-events: all;
+  nav-index: 0;
 }
 
 .validator .prompt {
@@ -34,6 +52,17 @@
   font-size: 16pt;
   border-radius: 10px;
   border-bottom: 2px solid var(--col4);
+  caret-color: var(--col4);
+  pointer-events: all;
+}
+
+.validator .code:hover,
+.validator .code:focus {
+  background-color: var(--col4aa);
+}
+
+.validator .code:is(:hover, :focus) {
+  background-color: var(--col4aa);
 }
 
 .validator .validate {
@@ -45,21 +74,76 @@
   cursor: var(--cur-pointer);
   background-color: var(--inactive);
   border: 2px solid var(--inactive-border-light);
-}
-
-.validator .btn-cover {
-  cursor: var(--cur-inactive);
+  outline: none;
 }
 
 .validator .validate[data-valid="invalid"] {
-  background-color: var(--invalid-btn);
   border: 2px solid var(--inactive-border-light);
+  pointer-events: none;
 }
 
 .validator .validate[data-valid="valid"] {
   background-color: var(--valid-btn);
   border: 2px solid var(--inactive-border-light);
   pointer-events: all;
+}
+
+.validator .verify-email {
+  margin-top: 20px;
+}
+
+.validator p:first-of-type {
+  font-weight: bold;
+}
+
+.validator p {
+  font-size: 15pt;
+  margin: 5px 0;
+  display: inline-block;
+}
+
+.validator .email-verification {
+  margin: 10px 0;
+  padding: 5px;
+  background-color: var(--col4a);
+  height: fit-content;
+  width: 100%;
+  text-indent: 20px;
+  outline: none;
+  font-size: 16pt;
+  border-radius: 10px;
+  border-bottom: 2px solid var(--col4);
+  caret-color: var(--col4);
+  pointer-events: all;
+  display: block;
+}
+
+.validator .email-verification:hover,
+.validator .email-verification:focus {
+  background-color: var(--col4aa);
+}
+
+.validator .email-verification:is(:hover, :focus) {
+  background-color: var(--col4aa);
+}
+
+.validator .resend {
+  width: 100%;
+  padding: 3px 15px;
+  border-radius: 8px;
+  font-size: 15pt;
+  background-color: var(--col3a);
+  outline: none;
+  pointer-events: all;
+}
+
+.validator .resend:hover,
+.validator .resend:focus {
+  background-color: var(--col3);
+}
+
+.validator .resend:is(:hover, :focus) {
+  background-color: var(--col3);
 }
 
 main.outer {
@@ -112,6 +196,11 @@ aside a {
   border-bottom: 1px solid var(--col2);
 }
 
+aside a:visited {
+  border-bottom: 1px solid var(--col4);
+  color: var(--col4) !important;
+}
+
 aside a:hover {
   border-bottom: 1px solid var(--col3);
   color: var(--col3) !important;
@@ -146,6 +235,18 @@ main.inner section label {
   top: 0;
 }
 
+section .input,
+section .textarea {
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--col5);
+  background-color: var(--col4a);
+  cursor: var(--cur-text);
+  border-radius: 10px 10px 5px 5px;
+  caret-color: var(--col4);
+}
+
 section :is(.input, .textarea) {
   display: block;
   width: 100%;
@@ -154,14 +255,31 @@ section :is(.input, .textarea) {
   background-color: var(--col4a);
   cursor: var(--cur-text);
   border-radius: 10px 10px 5px 5px;
+  caret-color: var(--col4);
+}
+
+.dark section .input,
+.dark section .textarea {
+  border-color: var(--col4);
 }
 
 .dark section :is(.input, .textarea) {
   border-color: var(--col4);
 }
 
+section .input:hover,
+section .input:focus,
+section .textarea:hover,
+section .textarea:focus {
+  outline: none;
+  border-bottom: 2px solid var(--col3);
+  background-color: var(--col4aa);
+}
+
 section :is(.input, .textarea):is(:hover, :focus) {
   outline: none;
+  border-bottom: 2px solid var(--col3);
+  background-color: var(--col4aa);
 }
 
 section .textarea {
@@ -173,34 +291,58 @@ section .input {
   padding: 20px 20px 5px;
 }
 
+main.inner section .textarea:empty + label,
+main.inner section .input:empty + label {
+  top: 14px;
+  font-size: 20pt;
+}
+
 main.inner section :is(.textarea, .input):empty + label {
   top: 14px;
   font-size: 20pt;
+}
+
+main.inner section .textarea:empty:not(:focus) + label::after,
+main.inner section .input:empty:not(:focus) + label::after {
+  content: "";
 }
 
 main.inner section :is(.textarea, .input):empty:not(:focus) + label::after {
   content: "";
 }
 
+main.inner section .textarea:empty:focus + label::after,
+main.inner section .input:empty:focus + label::after {
+  content: ":";
+}
+
 main.inner section :is(label, :is(.textarea, .input):focus + label)::after {
   content: ":";
 }
 
-section :is(.input, .textarea):is(:focus, :hover) {
-  border-bottom: 2px solid var(--col3);
-}
-
-section :is(.input, .textarea):hover {
-  background-color: var(--col4aa);
-}
-
-main.inner section :is(.input, .textarea):is(:focus) + label {
+main.inner section .input:focus + label,
+main.inner section .textarea:focus + label {
   top: 0;
   font-size: 12pt;
 }
 
+main.inner section :is(.input, .textarea):focus + label {
+  top: 0;
+  font-size: 12pt;
+}
+
+section .input[data-valid="invalid"],
+section .textarea[data-valid="invalid"] {
+  border-color: var(--invalid);
+}
+
 section :is(.input, .textarea)[data-valid="invalid"] {
   border-color: var(--invalid);
+}
+
+section .input[data-valid="valid"],
+section .textarea[data-valid="valid"] {
+  border-color: var(--valid);
 }
 
 section :is(.input, .textarea)[data-valid="valid"] {
@@ -214,18 +356,20 @@ section .send {
   cursor: var(--cur-pointer);
   background-color: var(--inactive);
   border: 2px solid var(--inactive-border-light);
+  outline: none;
+  padding: 5px 0;
 }
 
 .dark section .send {
   border: 2px solid var(--inactive-border-dark);
 }
 
-section .btn-cover {
-  cursor: var(--cur-inactive);
+.btn-cover {
+  cursor: var(--cur-red-unavailable);
+  pointer-events: all;
 }
 
 section .send[data-valid="invalid"] {
-  background-color: var(--invalid-btn);
   border: 2px solid var(--inactive-border-light);
 }
 
@@ -233,6 +377,15 @@ section .send[data-valid="valid"] {
   background-color: var(--valid-btn);
   border: 2px solid var(--inactive-border-light);
   pointer-events: all;
+}
+
+section .send[data-valid="valid"]:hover,
+section .send[data-valid="valid"]:focus {
+  filter: brightness(1.3);
+}
+
+section .send[data-valid="valid"]:is(:hover, :focus) {
+  filter: brightness(1.3);
 }
 
 @media only screen and (max-width: 800px) {

@@ -1,11 +1,31 @@
+import { sendEmail } from "/js/services/emailjs.js";
+
+let timerRunning = false;
+const acceptableKeys = [
+  "Backspace",
+  "Tab",
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowUp",
+  "ArrowDown",
+  "Shift",
+];
+
 export const contact = () => {
+  if (getLocal("block") === "true") blockContact();
+  checkUnblock();
   $("#name").preventPaste();
-  $$(".field span").each(validate, "pass");
+  $$(".field span").each(validateField, "pass");
+  $(".send").click(activateConfirmation);
+  $(".popup").click(hidePopup);
+  $(".code").on("blur", validateCode);
+  $(".validate").click(verifyCode);
+  $(".resend").click(resendCode);
 };
 
 const nameValidator = (el) => {
   el.on("keydown", (e) => {
-    if (e.key === "Backspace" || e.key === "Tab") return;
+    if (e.key.in(acceptableKeys)) return;
     if (!e.metaKey) {
       e.preventDefault();
       const text = el.innerText;
@@ -47,7 +67,7 @@ const nameValidator = (el) => {
     }
   });
 
-  el.on("blur", () => {
+  el.on("blur keydown", () => {
     if (el.innerText.length === 0) markInvalid(el);
     else markValid(el);
     checkFormValid();
@@ -58,7 +78,7 @@ const emailValidator = (el) => {
   el.on("keydown", (e) => {
     const text = el.innerText;
     const lastChar = text[text.length - 1];
-    if (e.key === "Backspace" || e.key === "Tab") return;
+    if (e.key.in(acceptableKeys)) return;
     if (!e.metaKey) {
       e.preventDefault();
       if (
@@ -80,8 +100,8 @@ const emailValidator = (el) => {
     }
   });
 
-  el.on("blur", () => {
-    if (checkEmail(el)) markValid(el);
+  el.on("blur keydown", () => {
+    if (checkEmail(el.innerText)) markValid(el);
     else markInvalid(el);
     checkFormValid();
   });
@@ -100,17 +120,18 @@ const insertTextAtCursor = (text) => {
   }
 };
 
-const checkEmail = (el) => {
-  const email = el.innerText;
-
-  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-    email
-  );
+const messageValidator = (el) => {
+  el.on("blur keydown", () => {
+    if (el.innerText !== "" && el.innerText != null) markValid($("#message"));
+    else markInvalid($("#message"));
+    checkFormValid();
+  });
 };
 
-const validate = (el) => {
+const validateField = (el) => {
   if (el.id === "name") nameValidator(el);
   if (el.id === "email") emailValidator(el);
+  if (el.id === "message") messageValidator(el);
 };
 
 const markValid = (el) => {
@@ -127,6 +148,170 @@ const checkFormValid = () => {
   const message = $("#message").dataset.valid;
 
   if (name === "valid" && email === "valid" && message === "valid")
-    $("button").dataset.valid = "valid";
-  else $("button").dataset.invalid = "invalid";
+    markValid($(".send"));
+  else markInvalid($(".send"));
+};
+
+const checkValidator = () => {
+  const code = $(".code").dataset.valid;
+
+  if (code === "valid") markValid($(".validate"));
+  else markInvalid($(".validate"));
+};
+
+const validateCode = () => {
+  const code = $(".code").innerText;
+  if (code !== "" && code !== null) markValid($(".code"));
+  else markInvalid($(".code"));
+
+  checkValidator();
+};
+
+const hidePopup = (e) => {
+  if (e.target === $(".popup")) $(".validator").hide();
+};
+
+const activateConfirmation = (e) => {
+  e.preventDefault();
+  $(".validator").show();
+  disableKeys("Tab");
+  sendEmail("confirm", collectData());
+  $("p.email-verification").innerText = $("#email").innerText;
+
+  clearForm();
+};
+
+const clearForm = () => {
+  $("#name").innerText = "";
+  $("#email").innerText = "";
+  $("#message").innerText = "";
+  $("#name").dataset.valid = "";
+  $("#email").dataset.valid = "";
+  $("#message").dataset.valid = "";
+};
+
+const collectData = () => {
+  const code = getCode();
+  setLocal("name", $("#name").innerText);
+  setLocal("email", $("#email").innerText);
+  setLocal("message", $("#message").innerText);
+  return {
+    name: $("#name").innerText,
+    email: $("#email").innerText,
+    message: $("#message").innerText,
+    code: code,
+  };
+};
+
+const retrieveData = () => {
+  return {
+    name: getLocal("name"),
+    email: getLocal("email"),
+    message: getLocal("message"),
+  };
+};
+
+export const clearData = () => {
+  removeLocal("name");
+  removeLocal("email");
+  removeLocal("message");
+};
+
+const getCode = () => {
+  let code = getLocal("code");
+  if (code === "" || code == null) {
+    code = generateNewCode();
+    setLocal("code", code);
+    setLocal("codeExpiration", new Date().addMins(15));
+    startTimer();
+  }
+  return code;
+};
+
+const generateNewCode = () => {
+  let buf = "",
+    choices = [...nums, ...uppers, ...lowers];
+  for (let i = 0; i < 14; i++) {
+    buf += randChoice(choices);
+  }
+  return buf;
+};
+
+const startTimer = () => {
+  setTimeout(checkCodeTime, 840000);
+};
+
+export const checkCodeTime = () => {
+  if (!timerRunning) {
+    timerRunning = true;
+    const timeCheck = setInterval(() => {
+      if (
+        new Date(getLocal("codeExpiration")) < new Date() ||
+        getLocal("code") === "" ||
+        getLocal("code") == null
+      ) {
+        removeLocal("code");
+        removeLocal("codeExpiration");
+        clearInterval(timeCheck);
+        timerRunning = false;
+      }
+    }, 10000);
+  }
+};
+
+const getCodeAttempts = () => {
+  let attempts = getLocal("codeAttempts");
+  if (attempts === "" || attempts == null) {
+    attempts = 3;
+    setLocal("codeAttempts", 3);
+  }
+  return +attempts;
+};
+
+const verifyCode = () => {
+  let attempts = getCodeAttempts();
+  if (attempts > 0) {
+    if ($(".code").innerText === getLocal("code")) {
+      sendEmail("send", retrieveData());
+      clearData();
+    } else {
+      $(".code").shake();
+      attempts--;
+      setLocal("codeAttempts", attempts);
+    }
+  } else {
+    setLocal("block", "true");
+    setLocal("blockExpiration", new Date().addHours(1));
+    blockContact();
+  }
+};
+
+const blockContact = () => {
+  $(".blocked").show();
+  $("form").hide();
+};
+
+const unblockContact = () => {
+  $(".blocked").hide();
+  $("form").show();
+  setLocal("block", "false");
+  removeLocal("blockExpiration");
+};
+
+const checkUnblock = () => {
+  const timer = setInterval(() => {
+    const expiration = getLocal("blockExpiration");
+    if (expiration == null) {
+      unblockContact();
+      clearTimeout(timer);
+    } else if (new Date(getLocal("blockExpiration")) < new Date()) {
+      unblockContact();
+      clearTimeout(timer);
+    }
+  }, 60000);
+};
+
+const resendCode = () => {
+  setLocal("email", $("p.email-verification").innerText);
+  sendEmail("confirm", collectData());
 };

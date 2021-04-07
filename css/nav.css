@@ -112,6 +112,14 @@ nav a {
   text-align: center;
   font-weight: bold;
 }
+.nav-list-item:hover,
+.nav-list-item:focus,
+.nav-list-item:hover a,
+.nav-list-item:focus a {
+  filter: brightness(1.3);
+  color: var(--col1);
+  outline: none;
+}
 
 :is(.nav-list-item:is(:hover, :focus), .nav-list-item:is(:hover, :focus) a) {
   filter: brightness(1.3);
@@ -119,8 +127,11 @@ nav a {
   outline: none;
 }
 
-:has() {
-  background-color: red !important;
+nav .nav-list span > :hover ~ .bottom-bar,
+nav .nav-list span > :focus ~ .bottom-bar {
+  width: 20%;
+  left: 0;
+  opacity: 1;
 }
 
 nav .nav-list span > :is(:hover, :focus) ~ .bottom-bar {
@@ -129,16 +140,36 @@ nav .nav-list span > :is(:hover, :focus) ~ .bottom-bar {
   opacity: 1;
 }
 
+nav .nav-list span > :nth-child(2):hover ~ .bottom-bar,
+nav .nav-list span > :nth-child(2):focus ~ .bottom-bar {
+  left: 20%;
+}
+
 nav .nav-list span > :nth-child(2):is(:hover, :focus) ~ .bottom-bar {
   left: 20%;
+}
+
+nav .nav-list span > :nth-child(3):hover ~ .bottom-bar,
+nav .nav-list span > :nth-child(3):focus ~ .bottom-bar {
+  left: 40%;
 }
 
 nav .nav-list span > :nth-child(3):is(:hover, :focus) ~ .bottom-bar {
   left: 40%;
 }
 
+nav .nav-list span > :nth-child(4):hover ~ .bottom-bar,
+nav .nav-list span > :nth-child(4):focus ~ .bottom-bar {
+  left: 60%;
+}
+
 nav .nav-list span > :nth-child(4):is(:hover, :focus) ~ .bottom-bar {
   left: 60%;
+}
+
+nav .nav-list span > :nth-child(5):hover ~ .bottom-bar,
+nav .nav-list span > :nth-child(5):focus ~ .bottom-bar {
+  left: 80%;
 }
 
 nav .nav-list span > :nth-child(5):is(:hover, :focus) ~ .bottom-bar {
@@ -187,6 +218,11 @@ nav .bottom-bar {
   nav .nav-header {
     flex-direction: column-reverse;
     padding: 0;
+  }
+
+  nav h1,
+  nav a {
+    text-align: center;
   }
 
   nav :is(h1, a) {

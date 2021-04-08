@@ -1,4 +1,4 @@
-import { sendEmail } from "/js/services/emailjs.js";
+import { sendEmail, initEmail } from "/js/services/emailjs.js";
 
 let timerRunning = false;
 const acceptableKeys = [
@@ -12,6 +12,7 @@ const acceptableKeys = [
 ];
 
 export const contact = () => {
+  initEmail();
   if (getLocal("block") === "true") blockContact();
   checkUnblock();
   $("#name").preventPaste();
@@ -43,7 +44,7 @@ const nameValidator = (el) => {
         return;
       }
       if (
-        (isLetter(e.key) && e.key.length === 1) ||
+        (e.key.in(letters) && e.key.length === 1) ||
         e.code === "Space" ||
         e.key === "'"
       ) {
@@ -81,20 +82,18 @@ const emailValidator = (el) => {
     if (e.key.in(acceptableKeys)) return;
     if (!e.metaKey) {
       e.preventDefault();
+      console.log(e.key);
       if (
-        (text.length === 0 &&
-          e.key.match(letters) == null &&
-          e.key.match(numbers) == null) ||
+        (text.length === 0 && !e.key.in([...nums, ...allLetters])) ||
         e.code === "Space" ||
         (e.key === lastChar && lastChar === ".") ||
         (e.key === "@" && text.match(/@/)) ||
-        e.key === "Enter" ||
         e.key.length > 1
       ) {
         if (e.key.length === 1) el.shake();
         return;
       } else {
-        let key = e.key.toLowerCase();
+        const key = e.key.toLowerCase();
         insertTextAtCursor(key);
       }
     }

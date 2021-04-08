@@ -1,6 +1,4 @@
-(function () {
-  emailjs.init("user_YaQlPUmioMpmaXse1sNTK");
-})();
+export const initEmail = () => emailjs.init("user_YaQlPUmioMpmaXse1sNTK");
 
 export const sendEmail = (type, data) => {
   const params = {

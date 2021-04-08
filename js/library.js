@@ -8,6 +8,7 @@ const lowers = "abcdefghijklmnopqrstuvwxyz";
 const uppers = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const specials = "!@#$%^&*()_+-=[]{};':\",./<>?\\|`~";
 const nums = "0123456789";
+const allLetters = [...lowers, ...uppers];
 
 const isLetter = (char) => char.toLowerCase() != char.toUpperCase();
 
@@ -33,11 +34,58 @@ const randBetween = (min, max) =>
 
 const randChoice = (array) => array[randBetween(0, array.length - 1)];
 
+const getDistance = (element) => {
+  e = window.event;
+  return Math.floor(
+    Math.sqrt(
+      Math.pow(e.clientX - (element.offsetLeft + element.offsetWidth / 2), 2) +
+        Math.pow(e.clientY - (element.offsetTop + element.offsetHeight / 2), 2)
+    )
+  );
+};
+
+const getDistanceBetween = (element, element2) => {
+  element = element.getBoundingClientRect();
+  return Math.floor(
+    Math.sqrt(
+      Math.pow(
+        element.left +
+          element.width / 2 -
+          (element2.offsetLeft + element2.offsetWidth / 2),
+        2
+      ) +
+        Math.pow(
+          element.top +
+            element.height / 2 -
+            (element2.offsetTop + element2.offsetHeight / 2),
+          2
+        )
+    )
+  );
+};
+
+const array = (item) => {
+  if (!Array.isArray(item) && typeof item !== "object") item = [item];
+  return item;
+};
+
+const flipLetters = (elements, speed) => {
+  text = array(elements);
+  text.each((t, i) => {
+    i *= speed;
+    setTimeout(() => {
+      t.classList.add("flip");
+    }, i);
+    setTimeout(() => {
+      t.classList.remove("flip");
+    }, i + 3000);
+  }, "pass");
+};
+
 class Keyboard {
   eventListeners = {};
 
   disable = (keys) => {
-    console.log("Called");
     keys = [...keys.split(" ")];
     keys.forEach((key) => {
       let listener = this.eventListeners[key];
@@ -45,7 +93,6 @@ class Keyboard {
         listener = this.disableKey.bind(this, key);
         this.eventListeners[key] = listener;
       }
-      console.log(listener);
       document.on("keydown", listener);
     });
   };
@@ -128,6 +175,44 @@ HTMLElement.prototype.click = function (...callbacks) {
   return this;
 };
 
+Element.prototype.span = function (type = "") {
+  const text = array(this.innerText.split(""));
+  this.innerText = "";
+
+  let label;
+
+  if (type === "words") {
+    text.each((item, i) => {
+      if (label == null) label = document.createElement("label");
+      const span = document.createElement("span");
+      if (item !== " ") {
+        span.innerHTML = item;
+        label.append(span);
+      } else {
+        this.append(label);
+        span.innerHTML = "&nbsp;";
+        this.appendChild(span);
+        label = null;
+      }
+      if (i + 1 >= text.length) this.append(label);
+    }, "pass");
+  } else {
+    text.each((item, i) => {
+      const span = document.createElement("span");
+      if (item === " ") item = "&nbsp;";
+      span.innerHTML = item;
+      this.append(span);
+    }, "pass");
+  }
+};
+
+const buildSpan = (item, i) => {
+  const span = document.createElement("span");
+  if (item === " ") item = "&nbsp;";
+  span.innerHTML = item;
+  this.append(span);
+};
+
 Document.prototype.on = addEventListener;
 
 Document.prototype.ready = function (...callbacks) {
@@ -136,9 +221,17 @@ Document.prototype.ready = function (...callbacks) {
 };
 
 Object.prototype.each = function (callback, method = "call") {
-  this.forEach((el, i) => {
-    if (method === "call") callback.call(el, i);
-    else if (method === "pass") callback(el, i);
+  this.forEach((item, i) => {
+    if (method === "call") callback.call(item, i);
+    else if (method === "pass") callback(item, i);
+  });
+  return this;
+};
+
+Array.prototype.each = function (callback, method = "call") {
+  this.forEach((item, i) => {
+    if (method === "call") callback.call(item, i);
+    else if (method === "pass") callback(item, i);
   });
   return this;
 };

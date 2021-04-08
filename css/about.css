@@ -123,13 +123,27 @@ figure:hover :is(.img-cover-text, .img-cover-text-bottom) {
 article {
   display: flex;
   flex-direction: column;
-  text-indent: 50px;
   width: fit-content;
-  text-align: justify;
-  text-justify: inter-word;
+  padding: 10px;
+}
+
+article h1 {
+  font-size: 30pt;
+  text-align: center;
+}
+
+article h1 span {
+  display: inline-block;
+}
+
+article span {
+  transition: color 1.5s ease;
 }
 
 p {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin: 10px;
   min-width: 400px;
   width: 100%;
@@ -137,7 +151,16 @@ p {
   font-size: 15pt;
 }
 
-.dark p {
+p::after {
+  content: "";
+  flex: auto;
+}
+
+p > label:first-of-type {
+  margin-left: 50px;
+}
+
+.dark article * {
   color: var(--col1);
 }
 

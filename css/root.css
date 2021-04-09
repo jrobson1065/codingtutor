@@ -22,15 +22,15 @@
   --inactive-border-light: #57575788;
   --mono: "Roboto Mono", monospace;
   --sans: "Cantarell", sans-serif;
-  --cur-default: URL(http://www.rw-designer.com/cursor-extern.php?id=139802), URL(/images/cursors/cursor.cur), default;
-  --cur-pointer: URL(http://www.rw-designer.com/cursor-extern.php?id=139799), URL(/images/cursors/pointer.cur), pointer;
-  --cur-text: URL(http://www.rw-designer.com/cursor-extern.php?id=139804), URL(/images/cursors/text.cur), text;
-  --cur-unavailable: URL(http://www.rw-designer.com/cursor-extern.php?id=139806), URL(/images/cursors/inactive.cur), not-allowed;
-  --cur-green-default: URL(http://www.rw-designer.com/cursor-extern.php?id=139750), URL(/images/cursors/cursor.cur), default;
-  --cur-green-pointer: URL(http://www.rw-designer.com/cursor-extern.php?id=139764), URL(/images/cursors/cursor.cur), default;
-  --cur-green-text: URL(http://www.rw-designer.com/cursor-extern.php?id=139755), URL(/images/cursors/cursor.cur), default;
-  --cur-green-unavailable: URL(http://www.rw-designer.com/cursor-extern.php?id=139757), URL(/images/cursors/cursor.cur), default;
-  --cur-red-unavailable: URL(http://www.rw-designer.com/cursor-extern.php?id=139737), URL(/images/cursors/cursor.cur), default;
+  --cur-default: URL(/images/cursors/cur-default.cur), default;
+  --cur-pointer: URL(http://www.rw-designer.com/cursor-extern.php?id=139799), pointer;
+  --cur-text: URL(/images/cursors/cur-text.cur), text;
+  --cur-unavailable: URL(/images/cursors/cur-unavailable.cur), not-allowed;
+  --cur-green-default: URL(/images/cursors/cur-green-default.cur), default;
+  --cur-green-pointer: URL(/images/cursors/cur-green-pointer.cur), pointer;
+  --cur-green-text: URL(/images/cursors/cur-green-text.cur), text;
+  --cur-green-unavailable: URL(/images/cursors/cur-green-unavailable.cur), not-allowed;
+  --cur-red-unavailable: URL(/images/cursors/cur-red-unavailable.cur), not-allowed;
 }
 
 * {

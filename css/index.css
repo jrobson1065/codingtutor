@@ -49,40 +49,16 @@
   z-index: 100;
 }
 
-:is(.inner-blue, .inner-green) {
-  height: 12px;
-  width: 57px;
-  border-radius: 50px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--col1);
-  z-index: 100;
-}
-
-.dark .inner-blue,
-.dark .inner-green {
-  background-color: var(--col5);
-}
-
-.dark :is(.inner-blue, .inner-green) {
+.dark .inner {
   background-color: var(--col5);
 }
 
 .burst {
-  transition: all ease-out;
   position: absolute;
-  opacity: 1;
 }
 
 .transparent {
   background-color: transparent !important;
-}
-
-.no-opacity {
-  transition: all 1s;
-  opacity: 0 !important;
 }
 
 .overflow-visible {

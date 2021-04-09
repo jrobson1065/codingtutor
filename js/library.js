@@ -32,6 +32,8 @@ const checkEmail = (email) =>
 const randBetween = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
+const randDec = (min, max) => Math.random() * (max - min + 1) + min;
+
 const randChoice = (array) => array[randBetween(0, array.length - 1)];
 
 const getDistance = (element) => {

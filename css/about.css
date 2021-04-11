@@ -128,11 +128,20 @@ article {
 }
 
 article h1 {
+  padding-left: 15px;
   font-size: 30pt;
   text-align: center;
+  display: flex;
+  width: fit-content;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-article h1 span {
+article h1 label, article h1 span {
+  display: inline-block;
+}
+
+article h1 :is(label, span) {
   display: inline-block;
 }
 
@@ -164,6 +173,11 @@ p > label:first-of-type {
   color: var(--col1);
 }
 
+.highlight {
+  color: var(--col3) !important;
+  transition: color 0.1s ease;
+}
+
 @media only screen and (max-width: 1000px) {
   main {
     grid-template-columns: 1fr;
@@ -171,11 +185,16 @@ p > label:first-of-type {
 
   img.self {
     grid-row: 2;
-    width: 100%;
     max-width: 500px;
-    min-width: unset;
     padding-bottom: 20px;
     transition: height 0s, width 0s;
+  }
+
+  figure,
+  figure * {
+    max-width: 500px;
+    min-width: 0 !important;
+    width: 100% !important;
   }
 
   p {
@@ -183,6 +202,13 @@ p > label:first-of-type {
     width: 100%;
     max-width: 500px;
     font-size: 13pt;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  article h1 label {
+    display: inline-block;
+    margin: 0 auto;
   }
 }
 

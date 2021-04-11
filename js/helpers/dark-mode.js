@@ -18,6 +18,7 @@ export const toggleDarkMode = () => {
 };
 
 export const initDarkMode = () => {
+  initSwitch();
   document.ready(() => {
     if (checkDarkMode()) {
       toggleDarkMode();
@@ -25,4 +26,18 @@ export const initDarkMode = () => {
     }
     $(".switch input").click(toggleDarkMode, switchMode);
   });
+};
+
+const initSwitch = () => {
+  $(".switch").on(
+    "keypress",
+    (e) => {
+      const i = $(".switch input");
+      if (e.code === "Space" || e.code === "Enter") {
+        i.checked ? (i.checked = false) : (i.checked = true);
+        toggleDarkMode();
+      }
+    },
+    "call"
+  );
 };

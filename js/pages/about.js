@@ -1,5 +1,5 @@
 export const about = () => {
-  $("article h1").span();
+  $("article h1").span("words");
   $$("article p").each((el) => {
     el.span("words");
   }, "pass");

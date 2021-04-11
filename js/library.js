@@ -24,6 +24,12 @@ const removeLocal = (key) => localStorage.removeItem(key);
 
 const remove = Element.prototype.remove;
 
+const cleanPaste = (e) => {
+  e.preventDefault();
+  var text = (e.originalEvent || e).clipboardData.getData("text/plain");
+  document.execCommand("insertHTML", false, text);
+};
+
 const checkEmail = (email) =>
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@+[a-zA-Z0-9-]+([a-zA-Z0-9-])+\.([a-zA-Z0-9-])+(?:[a-zA-Z0-9-])*$/.test(
     email
@@ -92,7 +98,7 @@ class Keyboard {
     keys.forEach((key) => {
       let listener = this.eventListeners[key];
       if (listener == null) {
-        listener = this.disableKey.bind(this, key);
+        listener = this._disableKey.bind(this, key);
         this.eventListeners[key] = listener;
       }
       document.on("keydown", listener);
@@ -177,9 +183,13 @@ HTMLElement.prototype.click = function (...callbacks) {
   return this;
 };
 
+Element.prototype.clearText = function () {
+  this.innerText = "";
+};
+
 Element.prototype.span = function (type = "") {
   const text = array(this.innerText.split(""));
-  this.innerText = "";
+  this.clearText();
 
   let label;
 
@@ -240,6 +250,14 @@ Array.prototype.each = function (callback, method = "call") {
 
 String.prototype.in = function (array) {
   return array.some((a) => a == this);
+};
+
+String.prototype.capitalize = function () {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+};
+
+String.prototype.limit = function (max, start = 0) {
+  return this.substring(start, start + max);
 };
 
 Date.prototype.addHours = function (hours) {

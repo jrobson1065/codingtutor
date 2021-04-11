@@ -23,14 +23,16 @@
   --mono: "Roboto Mono", monospace;
   --sans: "Cantarell", sans-serif;
   --cur-default: URL(/images/cursors/cur-default.cur), default;
-  --cur-pointer: URL(http://www.rw-designer.com/cursor-extern.php?id=139799), pointer;
+  --cur-pointer: URL(/images/cursors/cur-pointer.cur), pointer;
   --cur-text: URL(/images/cursors/cur-text.cur), text;
   --cur-unavailable: URL(/images/cursors/cur-unavailable.cur), not-allowed;
   --cur-green-default: URL(/images/cursors/cur-green-default.cur), default;
   --cur-green-pointer: URL(/images/cursors/cur-green-pointer.cur), pointer;
   --cur-green-text: URL(/images/cursors/cur-green-text.cur), text;
-  --cur-green-unavailable: URL(/images/cursors/cur-green-unavailable.cur), not-allowed;
-  --cur-red-unavailable: URL(/images/cursors/cur-red-unavailable.cur), not-allowed;
+  --cur-green-unavailable: URL(/images/cursors/cur-green-unavailable.cur),
+    not-allowed;
+  --cur-red-unavailable: URL(/images/cursors/cur-red-unavailable.cur),
+    not-allowed;
 }
 
 * {
@@ -57,6 +59,11 @@ body {
   grid-template-rows: auto 1fr auto;
 }
 
+a,
+button {
+  cursor: var(--cur-pointer);
+}
+
 :is(a, button) {
   cursor: var(--cur-pointer);
 }
@@ -79,11 +86,6 @@ input {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
-}
-
-.highlight {
-  color: var(--col3) !important;
-  transition: color 0.1s ease;
 }
 
 @keyframes shake {

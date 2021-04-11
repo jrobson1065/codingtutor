@@ -1,6 +1,7 @@
 import { sendEmail, initEmail } from "/js/services/emailjs.js";
 
 let timerRunning = false;
+
 const acceptableKeys = [
   "Backspace",
   "Tab",
@@ -19,9 +20,11 @@ export const contact = () => {
   $$(".field span").each(validateField, "pass");
   $(".send").click(activateConfirmation);
   $(".popup").click(hidePopup);
-  $(".code").on("blur", validateCode);
+  validateField($(".code"));
+  validateField($(".email-verification"));
   $(".validate").click(verifyCode);
   $(".resend").click(resendCode);
+  $$("[contenteditable]").each((el) => el.on("paste", cleanPaste), "pass");
 };
 
 const nameValidator = (el) => {
@@ -44,7 +47,7 @@ const nameValidator = (el) => {
         return;
       }
       if (
-        (e.key.in(letters) && e.key.length === 1) ||
+        (e.key.in(allLetters) && e.key.length === 1) ||
         e.code === "Space" ||
         e.key === "'"
       ) {
@@ -62,7 +65,7 @@ const nameValidator = (el) => {
     let text = el.innerText;
     if (text.match(/\./)) {
       text = text.replace(".", "");
-      el.innerText = "";
+      el.clearText();
       insertTextAtCursor(text);
       return;
     }
@@ -82,7 +85,6 @@ const emailValidator = (el) => {
     if (e.key.in(acceptableKeys)) return;
     if (!e.metaKey) {
       e.preventDefault();
-      console.log(e.key);
       if (
         (text.length === 0 && !e.key.in([...nums, ...allLetters])) ||
         e.code === "Space" ||
@@ -99,11 +101,18 @@ const emailValidator = (el) => {
     }
   });
 
-  el.on("blur keydown", () => {
-    if (checkEmail(el.innerText)) markValid(el);
-    else markInvalid(el);
-    checkFormValid();
-  });
+  el.on("blur keydown", () => markEmail(el));
+};
+
+const markEmail = (el) => {
+  if (checkEmail(el.innerText)) {
+    markValid(el);
+    if (el === $(".email-verification")) markValid($(".resend"));
+  } else {
+    markInvalid(el);
+    if (el === $(".email-verification")) markInvalid($(".resend"));
+  }
+  if (el === $("#email")) checkFormValid();
 };
 
 const insertTextAtCursor = (text) => {
@@ -131,6 +140,12 @@ const validateField = (el) => {
   if (el.id === "name") nameValidator(el);
   if (el.id === "email") emailValidator(el);
   if (el.id === "message") messageValidator(el);
+  if (el === $(".code")) codeValidator(el);
+  if (el === $(".email-verification")) emailValidator(el);
+};
+
+const clearValid = (el) => {
+  el.dataset.valid = "";
 };
 
 const markValid = (el) => {
@@ -158,9 +173,32 @@ const checkValidator = () => {
   else markInvalid($(".validate"));
 };
 
+const codeValidator = (el) => {
+  el.on(
+    "keydown",
+    (e) => {
+      if (e.metaKey || e.key.in(acceptableKeys)) return;
+      if ($(".code").innerText.length > 14) {
+        e.preventDefault();
+        return;
+      }
+      e.preventDefault();
+      if (e.key.in([...allLetters, ...nums])) insertTextAtCursor(e.key);
+    },
+    "pass"
+  );
+
+  el.on("keyup", validateCode);
+};
+
 const validateCode = () => {
-  const code = $(".code").innerText;
-  if (code !== "" && code !== null) markValid($(".code"));
+  const code = $(".code").innerText.limit(15);
+  $(".code").clearText();
+  for (let i = 0; i < code.length; i++) {
+    if (code[i].in([...allLetters, ...nums])) insertTextAtCursor(code[i]);
+  }
+
+  if (code.length >= 14) markValid($(".code"));
   else markInvalid($(".code"));
 
   checkValidator();
@@ -172,21 +210,24 @@ const hidePopup = (e) => {
 
 const activateConfirmation = (e) => {
   e.preventDefault();
+  if (e.target.dataset.valid !== "valid") return;
   $(".validator").show();
-  disableKeys("Tab");
+  keyboard.disable("Tab");
   sendEmail("confirm", collectData());
   $("p.email-verification").innerText = $("#email").innerText;
 
+  markEmail($(".email-verification"));
   clearForm();
 };
 
 const clearForm = () => {
-  $("#name").innerText = "";
-  $("#email").innerText = "";
-  $("#message").innerText = "";
-  $("#name").dataset.valid = "";
-  $("#email").dataset.valid = "";
-  $("#message").dataset.valid = "";
+  $("#name").clearText();
+  $("#email").clearText();
+  $("#message").clearText();
+  clearValid($("#name"));
+  clearValid($("#email"));
+  clearValid($("#message"));
+  clearValid($(".send"));
 };
 
 const collectData = () => {
@@ -207,6 +248,7 @@ const retrieveData = () => {
     name: getLocal("name"),
     email: getLocal("email"),
     message: getLocal("message"),
+    code: getLocal("code"),
   };
 };
 
@@ -214,6 +256,8 @@ export const clearData = () => {
   removeLocal("name");
   removeLocal("email");
   removeLocal("message");
+  removeLocal("attempts");
+  removeLocal("code");
 };
 
 const getCode = () => {
@@ -268,10 +312,13 @@ const getCodeAttempts = () => {
 };
 
 const verifyCode = () => {
+  e.preventDefault();
+  if (e.target.dataset.valid !== "valid") return;
   let attempts = getCodeAttempts();
   if (attempts > 0) {
     if ($(".code").innerText === getLocal("code")) {
       sendEmail("send", retrieveData());
+      clearValidator();
       clearData();
     } else {
       $(".code").shake();
@@ -311,6 +358,15 @@ const checkUnblock = () => {
 };
 
 const resendCode = () => {
+  e.preventDefault();
+  if (e.target.dataset.valid !== "valid") return;
   setLocal("email", $("p.email-verification").innerText);
-  sendEmail("confirm", collectData());
+  sendEmail("confirm", retrieveData());
 };
+
+const clearValidator = () => {
+  clearValid($(".validate"));
+  clearValid($(".code"));
+};
+
+unblockContact();

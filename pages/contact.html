@@ -30,8 +30,17 @@
         <div class="verify-email">
           <p>Didn't receive an email?</p>
           <p>Please verify your email:</p>
-          <p class="email-verification" role="email" contenteditable></p>
-          <button class="resend">Send Code Again</button>
+          <p
+            class="email-verification"
+            role="email"
+            tabindex="0"
+            data-valid=""
+            spellcheck="false"
+            contenteditable
+          ></p>
+          <span class="btn-cover">
+            <button class="resend" data-valid="">Send Code Again</button>
+          </span>
         </div>
       </div>
     </div>
@@ -52,7 +61,9 @@
           </div>
           <div>
             GitHub:
-            <a href="https://github.com/jrobson1065">github.com/jrobson1065</a>
+            <a href="https://github.com/jrobson1065" target="_blank"
+              >github.com/jrobson1065</a
+            >
           </div>
           <div>
             Portfolio:

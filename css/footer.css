@@ -42,15 +42,22 @@ footer ul a {
   list-style: none;
   text-decoration: none;
   cursor: var(--cur-green-pointer);
+  border-bottom: 2px solid transparent;
 }
 
 footer ul a:hover,
 footer ul a:focus {
-  text-decoration: underline;
+  outline: none;
+  border-bottom: 2px solid var(--col1);
 }
 
 footer ul a:is(:hover, :focus) {
-  text-decoration: underline;
+  outline: none;
+  border-bottom: 2px solid var(--col1);
+}
+
+footer ul a:is(:hover, :focus) li {
+  color: var(--col1);
 }
 
 @media only screen and (max-width: 800px) {

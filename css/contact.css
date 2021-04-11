@@ -10,9 +10,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: max-content;
-  max-width: 90%;
-  height: max-content;
+  width: 100%;
+  max-width: 600px;
   background-color: var(--col1);
   transform: translate(-50%, -50%);
   padding: 50px;
@@ -54,15 +53,9 @@
   border-bottom: 2px solid var(--col4);
   caret-color: var(--col4);
   pointer-events: all;
-}
-
-.validator .code:hover,
-.validator .code:focus {
-  background-color: var(--col4aa);
-}
-
-.validator .code:is(:hover, :focus) {
-  background-color: var(--col4aa);
+  max-height: min-content;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .validator .validate {
@@ -75,17 +68,6 @@
   background-color: var(--inactive);
   border: 2px solid var(--inactive-border-light);
   outline: none;
-}
-
-.validator .validate[data-valid="invalid"] {
-  border: 2px solid var(--inactive-border-light);
-  pointer-events: none;
-}
-
-.validator .validate[data-valid="valid"] {
-  background-color: var(--valid-btn);
-  border: 2px solid var(--inactive-border-light);
-  pointer-events: all;
 }
 
 .validator .verify-email {
@@ -114,17 +96,8 @@
   border-radius: 10px;
   border-bottom: 2px solid var(--col4);
   caret-color: var(--col4);
-  pointer-events: all;
   display: block;
-}
-
-.validator .email-verification:hover,
-.validator .email-verification:focus {
-  background-color: var(--col4aa);
-}
-
-.validator .email-verification:is(:hover, :focus) {
-  background-color: var(--col4aa);
+  pointer-events: all;
 }
 
 .validator .resend {
@@ -132,18 +105,10 @@
   padding: 3px 15px;
   border-radius: 8px;
   font-size: 15pt;
-  background-color: var(--col3a);
+  background-color: var(--inactive);
+  border: 2px solid var(--inactive-border-light);
   outline: none;
-  pointer-events: all;
-}
-
-.validator .resend:hover,
-.validator .resend:focus {
-  background-color: var(--col3);
-}
-
-.validator .resend:is(:hover, :focus) {
-  background-color: var(--col3);
+  pointer-events: none;
 }
 
 main.outer {
@@ -201,9 +166,17 @@ aside a:visited {
   color: var(--col4) !important;
 }
 
-aside a:hover {
+aside a:hover,
+aside a:focus {
   border-bottom: 1px solid var(--col3);
   color: var(--col3) !important;
+  outline: none;
+}
+
+aside a:is(:hover, :focus) {
+  border-bottom: 1px solid var(--col3);
+  color: var(--col3) !important;
+  outline: none;
 }
 
 section {
@@ -267,19 +240,17 @@ section :is(.input, .textarea) {
   border-color: var(--col4);
 }
 
-section .input:hover,
-section .input:focus,
-section .textarea:hover,
-section .textarea:focus {
+[contenteditable]:hover,
+[contenteditable]:focus {
   outline: none;
-  border-bottom: 2px solid var(--col3);
-  background-color: var(--col4aa);
+  border-bottom: 2px solid var(--col3) !important;
+  background-color: var(--col4aa) !important;
 }
 
-section :is(.input, .textarea):is(:hover, :focus) {
+[contenteditable]:is(:hover, :focus) {
   outline: none;
-  border-bottom: 2px solid var(--col3);
-  background-color: var(--col4aa);
+  border-bottom: 2px solid var(--col3) !important;
+  background-color: var(--col4aa) !important;
 }
 
 section .textarea {
@@ -331,22 +302,12 @@ main.inner section :is(.input, .textarea):focus + label {
   font-size: 12pt;
 }
 
-section .input[data-valid="invalid"],
-section .textarea[data-valid="invalid"] {
-  border-color: var(--invalid);
+[contenteditable][data-valid="invalid"] {
+  border-color: var(--invalid) !important;
 }
 
-section :is(.input, .textarea)[data-valid="invalid"] {
-  border-color: var(--invalid);
-}
-
-section .input[data-valid="valid"],
-section .textarea[data-valid="valid"] {
-  border-color: var(--valid);
-}
-
-section :is(.input, .textarea)[data-valid="valid"] {
-  border-color: var(--valid);
+[contenteditable][data-valid="valid"] {
+  border-color: var(--valid) !important;
 }
 
 section .send {
@@ -369,23 +330,22 @@ section .send {
   pointer-events: all;
 }
 
-section .send[data-valid="invalid"] {
-  border: 2px solid var(--inactive-border-light);
+button[data-valid="invalid"] {
+  background-color: var(--invalid-btn) !important;
 }
 
-section .send[data-valid="valid"] {
-  background-color: var(--valid-btn);
-  border: 2px solid var(--inactive-border-light);
-  pointer-events: all;
+button[data-valid="valid"] {
+  background-color: var(--valid-btn) !important;
+  pointer-events: all !important;
 }
 
-section .send[data-valid="valid"]:hover,
-section .send[data-valid="valid"]:focus {
-  filter: brightness(1.3);
+button[data-valid="valid"]:hover,
+button[data-valid="valid"]:focus {
+  filter: brightness(1.3) !important;
 }
 
-section .send[data-valid="valid"]:is(:hover, :focus) {
-  filter: brightness(1.3);
+button[data-valid="valid"]:is(:hover, :focus) {
+  filter: brightness(1.3) !important;
 }
 
 @media only screen and (max-width: 800px) {

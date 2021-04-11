@@ -160,8 +160,9 @@ const resetExplode = () => {
     $$(".burst").each((el) => {
       const rotate = el.style.transform.split("rotate(")[1].split(")");
       if (rotate.length > 1)
-        trans = +el.style.transform.split("translate(")[1].split("px")[0];
-      else trans = 0;
+        if (rotate[1] !== "")
+          trans = +el.style.transform.split("translate(")[1].split("px")[0];
+        else trans = 0;
       if (trans > 0) {
         trans -= Math.max(Math.round(randDec(1, 2) * 100) / 100, 0);
         el.style.transform =

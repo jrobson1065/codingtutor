@@ -368,5 +368,3 @@ const clearValidator = () => {
   clearValid($(".validate"));
   clearValid($(".code"));
 };
-
-unblockContact();

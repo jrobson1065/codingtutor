@@ -2,18 +2,23 @@ nav::after {
   content: attr(data-title);
   position: absolute;
   font-size: 23vh;
-  color: var(--col6);
+  color: var(--col1);
   bottom: 0;
-  left: 0;
+  left: 20px;
   transform: translate(-20%, 100%);
   pointer-events: none;
   writing-mode: vertical-rl;
-  opacity: 0.1;
   z-index: -1;
+  text-shadow: 0 0 5px var(--col5aa), 0 0 5px var(--col5aa),
+    0 0 5px var(--col5aa), 0 0 10px var(--col5aa), 0 0 15px var(--col5aa),
+    0 0 20px var(--col5aa), 0 0 25px var(--col5aa);
 }
 
-.dark body::after {
-  color: var(--col1);
+.dark nav::after {
+  color: var(--col5);
+  text-shadow: 0 0 5px var(--col6aa), 0 0 5px var(--col6aa),
+    0 0 5px var(--col6aa), 0 0 10px var(--col6aa), 0 0 15px var(--col6aa),
+    0 0 20px var(--col6aa), 0 0 25px var(--col6aa);
 }
 
 nav {
@@ -166,6 +171,7 @@ nav .nav-list-item {
   text-align: center;
   font-weight: bold;
 }
+
 nav .nav-list-item:hover,
 nav .nav-list-item:focus,
 nav a .nav-list-item:hover,
@@ -175,7 +181,8 @@ nav a .nav-list-item:focus {
   outline: none;
 }
 
-nav :is(.nav-list-item:is(:hover, :focus), a:is(:hover, :focus) .nav-list-item) {
+nav
+  :is(.nav-list-item:is(:hover, :focus), a:is(:hover, :focus) .nav-list-item) {
   filter: brightness(1.3);
   color: var(--col1);
   outline: none;

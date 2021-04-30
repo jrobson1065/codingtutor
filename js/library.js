@@ -24,6 +24,18 @@ const removeLocal = (key) => localStorage.removeItem(key);
 
 const remove = Element.prototype.remove;
 
+const animate = window.requestAnimationFrame.bind(window);
+
+const build = (tag, parent) => {
+  const el = create(tag);
+  parent.append(el);
+  return el;
+};
+
+const create = (tag) => {
+  return document.createElement(tag);
+};
+
 const cleanPaste = (e) => {
   e.preventDefault();
   var text = (e.originalEvent || e).clipboardData.getData("text/plain");
@@ -43,7 +55,7 @@ const randDec = (min, max) => Math.random() * (max - min + 1) + min;
 const randChoice = (array) => array[randBetween(0, array.length - 1)];
 
 const getDistance = (element) => {
-  e = window.event;
+  const e = window.event;
   return Math.floor(
     Math.sqrt(
       Math.pow(e.clientX - (element.offsetLeft + element.offsetWidth / 2), 2) +
@@ -87,7 +99,7 @@ const flipLetters = (elements, speed) => {
     setTimeout(() => {
       t.classList.remove("flip");
     }, i + 3000);
-  }, "pass");
+  });
 };
 
 class Keyboard {
@@ -144,6 +156,7 @@ const preventAll = (Node.prototype.preventPaste = function () {
 });
 
 Element.prototype.shake = function () {
+  if (this.classList.contains("shake")) return;
   this.classList.add("shake");
   setTimeout(() => {
     this.classList.remove("shake");
@@ -197,6 +210,7 @@ Element.prototype.span = function (type = "") {
     text.each((item, i) => {
       if (label == null) label = document.createElement("label");
       const span = document.createElement("span");
+
       if (item !== " ") {
         span.innerHTML = item;
         label.append(span);
@@ -207,22 +221,53 @@ Element.prototype.span = function (type = "") {
         label = null;
       }
       if (i + 1 >= text.length) this.append(label);
-    }, "pass");
+    });
   } else {
-    text.each((item, i) => {
+    text.each((item) => {
       const span = document.createElement("span");
+
       if (item === " ") item = "&nbsp;";
       span.innerHTML = item;
       this.append(span);
-    }, "pass");
+    });
   }
 };
 
-const buildSpan = (item, i) => {
+const buildSpan = (item) => {
   const span = document.createElement("span");
   if (item === " ") item = "&nbsp;";
   span.innerHTML = item;
   this.append(span);
+};
+
+Element.prototype.text = function (text) {
+  this.innerText = text;
+  return this;
+};
+
+Element.prototype.html = function (html) {
+  this.innerHTML = html;
+  return this;
+};
+
+Element.prototype.addId = function (id) {
+  this.id = id;
+  return this;
+};
+
+Element.prototype.addClass = function (className) {
+  this.classList.add(className);
+  return this;
+};
+
+Element.prototype.removeClass = function (className) {
+  this.classList.remove(className);
+  return this;
+};
+
+Element.prototype.class = function (className) {
+  this.className = className;
+  return this;
 };
 
 Document.prototype.on = addEventListener;
@@ -232,7 +277,7 @@ Document.prototype.ready = function (...callbacks) {
   return this;
 };
 
-Object.prototype.each = function (callback, method = "call") {
+Object.prototype.each = function (callback, method = "pass") {
   this.forEach((item, i) => {
     if (method === "call") callback.call(item, i);
     else if (method === "pass") callback(item, i);
@@ -240,7 +285,7 @@ Object.prototype.each = function (callback, method = "call") {
   return this;
 };
 
-Array.prototype.each = function (callback, method = "call") {
+Array.prototype.each = function (callback, method = "pass") {
   this.forEach((item, i) => {
     if (method === "call") callback.call(item, i);
     else if (method === "pass") callback(item, i);

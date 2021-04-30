@@ -16,8 +16,3 @@ initPage(page);
 
 checkCodeTime();
 clearData();
-
-// To check git code line count:
-// git ls-files | while read f; do git blame --line-porcelain $f | grep '^author '; done | sort -f | uniq -ic | sort -n
-
-

@@ -23,17 +23,15 @@ const createParticles = () => {
     ];
 
     for (let i = 0; i < 100; i++) {
-      const div = document.createElement("div");
-      div.className = "burst";
+      const div = build("div", el).class("burst");
       div.style.width = randBetween(5, 8) + "px";
       div.style.height = randBetween(5, 8) + "px";
       div.style.top = randBetween(0, 90) + "%";
       div.style.left = randBetween(0, 90) + "%";
       div.style.clipPath = randChoice(paths);
       div.style.transform = "rotate(" + randBetween(0, 360) + "deg)";
-      el.append(div);
     }
-  }, "pass");
+  });
 };
 
 const explode = () => {
@@ -42,17 +40,11 @@ const explode = () => {
     if ($(".svg-logo").dataset.burst === "false") {
       $(".svg-logo").dataset.burst = "true";
 
-      $$(".rect").each((el) => {
-        el.style.overflow = "visible";
-      }, "pass");
+      $$(".rect").each((el) => (el.style.overflow = "visible"));
 
-      $$(".rect, .inner").each((el) => {
-        el.classList.add("transparent");
-      }, "pass");
+      $$(".rect, .inner").each((el) => el.addClass("transparent"));
 
-      $$(".burst").each((el) => {
-        el.style.opacity = 1;
-      }, "pass");
+      $$(".burst").each((el) => (el.style.opacity = 1));
 
       burstExplode();
     }
@@ -75,9 +67,9 @@ const burstExplode = () => {
       else trans = +el.style.transform.split("translate(")[1].split("px")[0];
       trans += Math.round(randDec(0, 4) * 100) / 100;
       el.style.transform = "rotate(" + rotate + ") translate(" + trans + "px)";
-    }, "pass");
+    });
 
-    if (elapsed < 1000) requestAnimationFrame(burst);
+    if (elapsed < 1000) animate(burst);
     else {
       startBurst = undefined;
     }
@@ -92,9 +84,9 @@ const burstExplode = () => {
       if (opacity > 0) {
         el.style.opacity = opacity - randBetween(0.02, 0.06);
       } else el.style.opacity = 0;
-    }, "pass");
+    });
 
-    if (elapsed < 1000) requestAnimationFrame(fadeOut);
+    if (elapsed < 1000) animate(fadeOut);
     else {
       startFade = undefined;
       $(".svg-logo").dataset.burst = "true";
@@ -106,8 +98,8 @@ const burstExplode = () => {
     }
   };
 
-  window.requestAnimationFrame(burst);
-  window.requestAnimationFrame(fadeOut);
+  animate(burst);
+  animate(fadeOut);
 };
 
 const resetBursts = () => {
@@ -117,11 +109,11 @@ const resetBursts = () => {
   ) {
     $$(".burst").each((el) => {
       el.style.opacity = 1;
-    }, "pass");
+    });
 
     resetExplode();
 
-    $$(".inner").each((el) => el.classList.remove("transparent"), "pass");
+    $$(".inner").each((el) => el.removeClass("transparent"));
   }
 };
 
@@ -140,15 +132,15 @@ const resetExplode = () => {
     $$(".rect").each((el) => {
       if (elapsed < 1) el.style.transition = "all 0.6s ease";
       else if (elapsed >= 250 && elapsed <= 270)
-        el.classList.remove("transparent");
+        el.removeClass("transparent");
       else if (elapsed >= 600 && elapsed <= 620) {
         el.style.transition = "";
         el.style.overflow = "";
       }
-    }, "pass");
+    });
 
     if (elapsed < 1100) {
-      window.requestAnimationFrame(showRects);
+      animate(showRects);
     } else startShow = undefined;
   };
 
@@ -174,15 +166,15 @@ const resetExplode = () => {
           scale +
           ")";
       }
-    }, "pass");
+    });
 
     if (elapsed < 1000) {
-      window.requestAnimationFrame(resetParticles);
+      animate(resetParticles);
     } else {
       startReset = undefined;
       $$(".burst").each((el) => {
         el.remove();
-      }, "pass");
+      });
       createParticles();
     }
   };
@@ -196,9 +188,9 @@ const resetExplode = () => {
         opacity = +el.style.opacity;
         el.style.opacity = opacity - 0.02;
       }
-    }, "pass");
+    });
 
-    if (elapsed < 1200) requestAnimationFrame(fadeOut);
+    if (elapsed < 1200) animate(fadeOut);
     else {
       startFade = undefined;
       $(".svg-logo").dataset.burst = "false";
@@ -210,7 +202,7 @@ const resetExplode = () => {
     }
   };
 
-  window.requestAnimationFrame(showRects);
-  window.requestAnimationFrame(fadeOut);
-  window.requestAnimationFrame(resetParticles);
+  animate(showRects);
+  animate(fadeOut);
+  animate(resetParticles);
 };

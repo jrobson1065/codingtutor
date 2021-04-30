@@ -2,22 +2,16 @@ footer {
   background-color: var(--col4);
   padding: 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   cursor: var(--cur-green-default);
-  box-sizing: border-box;
 }
 
 footer .container {
-  width: 50%;
-  min-width: 800px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
 }
 
 footer .container div {
-  text-align: center;
   font-size: 15pt;
-  min-width: 400px;
 }
 
 footer .copy {
@@ -66,8 +60,7 @@ footer ul a:is(:hover, :focus) li {
   }
 
   footer .container {
-    grid-template-columns: 1fr;
-    grid-auto-flow: dense;
+    flex-direction: column-reverse;
   }
 
   footer div,
@@ -84,9 +77,5 @@ footer ul a:is(:hover, :focus) li {
     min-width: unset;
     justify-content: center;
     padding: 0;
-  }
-
-  footer .container .copy {
-    order: 1;
   }
 }

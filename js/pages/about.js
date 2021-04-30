@@ -2,7 +2,7 @@ export const about = () => {
   $("article h1").span("words");
   $$("article p").each((el) => {
     el.span("words");
-  }, "pass");
+  });
   const flip = flipLetters.bind(this, $$("article h1 span"), 80);
   flip();
   setInterval(flip, 5000);
@@ -19,5 +19,5 @@ export const about = () => {
         el.classList.remove("highlight");
       }
     });
-  }, "pass");
+  });
 };

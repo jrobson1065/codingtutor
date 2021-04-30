@@ -17,14 +17,14 @@ export const contact = () => {
   if (getLocal("block") === "true") blockContact();
   checkUnblock();
   $("#name").preventPaste();
-  $$(".field span").each(validateField, "pass");
+  $$(".field span").each(validateField);
   $(".send").click(activateConfirmation);
   $(".popup").click(hidePopup);
   validateField($(".code"));
   validateField($(".email-verification"));
   $(".validate").click(verifyCode);
   $(".resend").click(resendCode);
-  $$("[contenteditable]").each((el) => el.on("paste", cleanPaste), "pass");
+  $$("[contenteditable]").each((el) => el.on("paste", cleanPaste));
 };
 
 const nameValidator = (el) => {
@@ -117,10 +117,10 @@ const markEmail = (el) => {
 
 const insertTextAtCursor = (text) => {
   if (text === " ") text = space;
-  let selection = window.getSelection();
-  let range = selection.getRangeAt(0);
+  const selection = window.getSelection();
+  const range = selection.getRangeAt(0);
   range.deleteContents();
-  let node = document.createTextNode(text);
+  const node = document.createTextNode(text);
   range.insertNode(node);
 
   for (let position = 0; position != text.length; position++) {
